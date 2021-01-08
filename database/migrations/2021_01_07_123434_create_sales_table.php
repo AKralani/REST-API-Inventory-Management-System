@@ -14,8 +14,20 @@ class CreateSalesTable extends Migration
     public function up()
     {
         Schema::create('sales', function (Blueprint $table) {
+            /* $table->increments('id');
+            $table->string('description');
+            $table->timestamps(); */
             $table->increments('id');
             $table->string('description');
+            $table->unsignedBigInteger('id_stock');
+            $table->unsignedBigInteger('sasia_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('client_id');
+            $table->decimal('total_amount', 10, 2)->nullable();
+            $table->timestamp('finalized_at')->nullable();
+            $table->foreign('id_stock')->references('id')->on('stocks');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();
         });
     }

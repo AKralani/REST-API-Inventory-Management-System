@@ -23,6 +23,9 @@ class ApiController extends Controller
         return response()->json([
             "message" => "stock record created"
         ], 201);
+        /* $stock = new Stock;
+        $stock= $request->all();
+        $stock->save(); */
     }
 
     public function getStock($id) {

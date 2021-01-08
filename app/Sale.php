@@ -8,5 +8,15 @@ class Sale extends Model
 {
     protected $table = 'sales';
 
-    protected $fillable = ['description'];
+    protected $fillable = ['description', 'client_id', 'user_id'];
+
+    /* public function transactions() {
+        return $this->hasMany('App\Transaction');
+    }
+    public function products() {
+        return $this->hasMany('App\SoldProduct');
+    } */
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
 }
