@@ -10,12 +10,12 @@ class Sale extends Model
 
     protected $fillable = ['description', 'client_id', 'user_id'];
 
-    /* public function transactions() {
+    public function transactions() {
         return $this->hasMany('App\Transaction');
     }
     public function products() {
         return $this->hasMany('App\SoldProduct');
-    } */
+    }
     public function user() {
         return $this->belongsTo('App\User');
     }

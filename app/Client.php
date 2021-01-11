@@ -18,8 +18,8 @@ class Client extends Model
         return $this->hasMany('App\Sale');
     }
 
-    /* public function transactions()
+    public function transactions()
     {
         return $this->hasMany('App\Transaction');
-    } */
+    }
 }
