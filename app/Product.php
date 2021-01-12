@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\ProductCategory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
@@ -11,10 +13,12 @@ class Product extends Model
     protected $table = "products";
 
     protected $fillable = ['name', 'type', 'description', 'product_category_id', 'price', 'stock', 'stock_defective'];
+    
+    protected $with = ['category'];
 
     public function category()
     {
-        return $this->belongsTo('App\ProductCategory', 'product_category_id')->withTrashed();
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
     }
 
     public function solds()
