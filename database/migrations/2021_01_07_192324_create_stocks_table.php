@@ -17,9 +17,9 @@ class CreateStocksTable extends Migration
             $table->increments('id');
             $table->string('description');
             $table->integer('quantity');
-            $table->unsignedBigInteger('id_stock');
+            //$table->unsignedBigInteger('id_stock');
             //$table->integer('id_product');
-            $table->string('price');
+            //$table->string('price');
             //$table->integer('category_id');
             //$table->string('category_name');
             //$table->float('purchase_cost');

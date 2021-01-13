@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('type');
             $table->timestamps(); */
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('type');
             $table->text('description')->nullable();

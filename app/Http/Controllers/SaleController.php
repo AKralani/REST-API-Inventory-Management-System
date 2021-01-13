@@ -7,6 +7,7 @@ use App\Stock;
 use App\Product;
 use App\Sale;
 use Validator;
+use DB;
 
 class SaleController extends Controller
 {
@@ -27,7 +28,7 @@ class SaleController extends Controller
         ], 201);
     } */
 
-    public function SaleSave(Request $request) {
+    public function saleSave(Request $request) {
         $rules = [
             'description' => 'required|min:3',
         ];
@@ -36,6 +37,13 @@ class SaleController extends Controller
             return response()->json($validator->errors(), 400);
         }
         $sale = Sale::create($request->all());
+        //qitu jom met
+        //$total_amount = DB::table('sales')->where('description', 'test')->value('total_amount');
+        /* $total_amount = DB::table('sales')
+            ->select('total_amount')
+            ->get();
+        DB::table('stocks')->decrement('quantity', $total_amount); */
+        //DB::table('stocks')->decrement('quantity', 1);
         return response()->json($sale, 201);
     }
 
