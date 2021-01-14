@@ -20,15 +20,20 @@ class CreateSalesTable extends Migration
             $table->bigIncrements('id');
             $table->string('description');
             //$table->unsignedBigInteger('id_stock');
-            //$table->unsignedBigInteger('sasia_id');
+            //$table->unsignedBigInteger('id_quantity');
+            $table->unsignedBigInteger('id_product');
             //$table->unsignedBigInteger('user_id');
             //$table->unsignedBigInteger('client_id');
             //$table->decimal('total_amount', 10, 2)->nullable();
             $table->integer('total_amount')->nullable();
+            $table->unsignedDecimal('price', 10, 2);
+            $table->unsignedDecimal('total_price', 10, 2);
             $table->timestamp('finalized_at')->nullable();
             //$table->foreign('id_stock')->references('id')->on('stocks');
+            //$table->foreign('id_quantity')->references('id')->on('stocks');
             //$table->foreign('user_id')->references('id')->on('users');
             //$table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('id_product')->references('id')->on('products');
             $table->timestamps();
         });
     }

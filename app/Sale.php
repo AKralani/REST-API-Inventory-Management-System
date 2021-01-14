@@ -20,4 +20,8 @@ class Sale extends Model
     public function user() {
         return $this->belongsTo('App\User');
     }
+
+    /* protected $casts = [
+        'total_amount' => 'integer',
+    ]; */
 }
