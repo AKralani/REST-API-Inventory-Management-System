@@ -21,7 +21,7 @@ class CreateSalesTable extends Migration
             $table->string('description');
             //$table->unsignedBigInteger('id_stock');
             //$table->unsignedBigInteger('id_quantity');
-            $table->unsignedBigInteger('id_product');
+            $table->unsignedBigInteger('product_id');
             //$table->unsignedBigInteger('user_id');
             //$table->unsignedBigInteger('client_id');
             //$table->decimal('total_amount', 10, 2)->nullable();
@@ -33,8 +33,21 @@ class CreateSalesTable extends Migration
             //$table->foreign('id_quantity')->references('id')->on('stocks');
             //$table->foreign('user_id')->references('id')->on('users');
             //$table->foreign('client_id')->references('id')->on('clients');
-            $table->foreign('id_product')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
+        });
+
+        //product_sale
+        Schema::create('product_sale', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('sale_id');
+            $table->timestamps();
+
+            $table->unique(['product_id', 'sale_id']);
+            
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade');
         });
     }
 
@@ -45,6 +58,7 @@ class CreateSalesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('product_sale');
         Schema::dropIfExists('sales');
     }
 }

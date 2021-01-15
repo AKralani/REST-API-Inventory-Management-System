@@ -16,6 +16,11 @@ class Product extends Model
     
     protected $with = ['category'];
 
+    public function sales()
+    {
+        return $this->belongsToMany(Sale::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(ProductCategory::class, 'product_category_id');

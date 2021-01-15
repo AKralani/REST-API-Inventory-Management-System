@@ -18,7 +18,7 @@ class CreateStocksTable extends Migration
             $table->string('description');
             $table->integer('quantity');
             //$table->unsignedBigInteger('id_stock');
-            $table->integer('id_product');
+            $table->unsignedBigInteger('product_id');
             //$table->string('price');
             //$table->integer('category_id');
             //$table->string('category_name');
@@ -27,7 +27,7 @@ class CreateStocksTable extends Migration
             //$table->float('suppler_cost');
             //$table->integer('supplier_id');
             $table->timestamps();
-            $table->foreign('id_product')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

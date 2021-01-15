@@ -38,11 +38,14 @@ class SaleController extends Controller
         }
         $sale = Sale::create($request->all());
         //qitu jom met
-        $total_amount = DB::table('sales')->where('description', 'Buke')->value('total_amount');
+        //$total_amount = DB::table('sales')->where('description', 'Buke')->value('total_amount');
         /* $total_amount = DB::table('sales')
             ->select('total_amount')
             ->get();
         DB::table('stocks')->decrement('quantity', $total_amount); */
+
+        $total_amount = DB::table('sales')->where('product_id', $request->get('product_id'))->value('total_amount');
+
         DB::table('stocks')->decrement('quantity', $total_amount);
         return response()->json($sale, 201);
     }
