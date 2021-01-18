@@ -31,6 +31,7 @@ class SaleController extends Controller
     public function saleSave(Request $request) {
         $rules = [
             'description' => 'required|min:3',
+            'total_amount' => 'required|lte:20'
         ];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()) {
@@ -44,9 +45,9 @@ class SaleController extends Controller
             ->get();
         DB::table('stocks')->decrement('quantity', $total_amount); */
 
-        $total_amount = DB::table('sales')->where('product_id', $request->get('product_id'))->value('total_amount');
-
-        DB::table('stocks')->decrement('quantity', $total_amount);
+        $stock = Stock::where('product_id', $request->product_id)->first();
+        $stock->decrement('quantity', $request->total_amount);
+        // DB::table('stocks')->decrement('quantity', $total_amount);
         return response()->json($sale, 201);
     }
 

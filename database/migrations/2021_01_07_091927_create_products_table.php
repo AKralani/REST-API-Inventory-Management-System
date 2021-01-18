@@ -21,10 +21,12 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             //$table->string('id_type');
-            $table->string('type');
+            //$table->string('type');
+            $table->unsignedBigInteger('type_id');
             $table->text('description')->nullable();
             //$table->unsignedBigInteger('product_category_id');
             $table->unsignedDecimal('price', 10, 2);
+            $table->foreign('type_id')->references('id')->on('types');
             //$table->unsignedinteger('stock')->default(0);
             //$table->unsignedinteger('stock_defective')->default(0);
             $table->timestamps();

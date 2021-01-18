@@ -28,10 +28,10 @@ class ProductSaveRequest extends FormRequest
         //if($validator->fails()) {
             return [
                 'name' => 'required|min:3',
-                'type' => 'required|min:1|max:30',
+                'type_id' => 'required|min:1|max:30',
                 'description' => 'required|min:5|max:50',
                 'price' => 'required|min:1|max:6',
-                'stock' => 'required|min:1|max:4',
+                //'stock' => 'required|min:1|max:4',
             ];
     }
     
@@ -40,10 +40,10 @@ class ProductSaveRequest extends FormRequest
     {
         return [
             'name.required'=> 'Name is Required',
-            'type.min'=> 'Type  is Required',
+            'type_id.min'=> 'Type  is Required',
             'description.required'=> 'Description is Required',
             'price.required'=> 'Price is Required',
-            'stock.required'=> 'Stock is Required',
+            //'stock.required'=> 'Stock is Required',
         ];
     }
         //}

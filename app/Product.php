@@ -12,7 +12,7 @@ class Product extends Model
 
     protected $table = "products";
 
-    protected $fillable = ['name', 'type', 'description', 'product_category_id', 'price', 'stock', 'stock_defective'];
+    protected $fillable = ['name', 'type_id', 'description', 'price'];
     
     protected $with = ['category'];
 
@@ -35,4 +35,19 @@ class Product extends Model
     {
         return $this->hasMany('App\ReceivedProduct');
     }
+
+    public function types() {
+        return $this->belongsTo('App\Type');
+    }
+
+    public function stocks() {
+        return $this->belongsTo('App\Stock');
+    }
 }
+
+// hasOne
+// hasMany
+// belongsTo
+// belongsToMany
+// morphMany
+// morphToMany
