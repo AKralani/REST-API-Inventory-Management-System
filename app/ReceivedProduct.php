@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ReceivedProduct extends Model
 {
     protected $fillable = [
-        'receipt_id', 'product_id', 'stock', 'stock_defective'
+        'product_id', 'total_amount'
     ];
 
     public function receipt()

@@ -29,10 +29,21 @@ class SaleController extends Controller
     } */
 
     public function saleSave(Request $request) {
-        $rules = [
+        /* $rules = [
             'description' => 'required|min:3',
             'total_amount' => 'required|lte:20'
+        ]; */
+
+        //first retrieves an array BUT removes everything and produces only the required field value
+        $stock = Stock::where('product_id', $request->product_id)->firstOrFail();
+        $qty = $stock->quantity;
+        $rules = [
+            'description' => 'required',
+            'product_id' => 'required',
+            'total_amount' => 'required|numeric|min:1|max:'.$qty,
+            'price' => 'required'
         ];
+
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()) {
             return response()->json($validator->errors(), 400);
