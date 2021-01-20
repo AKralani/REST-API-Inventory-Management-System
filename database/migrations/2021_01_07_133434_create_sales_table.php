@@ -26,6 +26,7 @@ class CreateSalesTable extends Migration
             //$table->unsignedBigInteger('client_id');
             //$table->decimal('total_amount', 10, 2)->nullable();
             $table->integer('total_amount')->nullable();
+            $table->integer('total_amount_correct')->nullable();
             $table->unsignedDecimal('price', 10, 2);
             $table->unsignedDecimal('total_price', 10, 2);
             $table->timestamp('finalized_at')->nullable();

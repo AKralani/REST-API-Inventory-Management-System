@@ -9,7 +9,7 @@ class Sale extends Model
     protected $table = 'sales';
 
     //protected $fillable = ['description', 'client_id', 'user_id'];
-    protected $fillable = ['description', 'product_id', 'total_amount', 'price', 'total_price'];
+    protected $fillable = ['description', 'product_id', 'total_amount', 'total_amount_correct', 'price', 'total_price'];
 
     public function transactions() {
         return $this->hasMany('App\Transaction');
