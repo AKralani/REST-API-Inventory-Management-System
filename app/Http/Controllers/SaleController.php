@@ -75,43 +75,21 @@ class SaleController extends Controller
 
     public function updateSale(Request $request, $id) {
         if (Sale::where('id', $id)->exists()) {
-            $sale = Sale::find($id);
+            $sale = Sale::find($id); 
+            $stock = Stock::where('product_id', $request->product_id)->first();         
+
+            $une=$sale->total_amount;
+            
+            $totali= $request->total_amount;
+            $difference= $une - $totali;
+            $stock->increment('quantity', $difference);
+
             $sale->description = is_null($request->description) ? $sale->description : $request->description;
             $sale->product_id = is_null($request->product_id) ? $sale->product_id : $request->product_id;
             $sale->total_amount = is_null($request->total_amount) ? $sale->total_amount : $request->total_amount;
             $sale->total_amount_correct = is_null($request->total_amount_correct) ? $sale->total_amount_correct : $request->total_amount_correct;
-            
-            $stock = Stock::where('product_id', $request->product_id)->first();
-            //$total_amount = Sale::where('total_amount', $request->total_amount)->first();
-            //$sale = Sale::where('product_id', $request->product_id)->first();
-            //$total_amount = Sale::where('total_amount', $request->total_amount)->get();
-            //$total_amount = DB::table('sales')->where('total_amount')->value('total_amount');
-            //$total_amount = DB::table('sales')->where('total_amount', $total_amount)->value('total_amount');
-            //$total_amount_correct = DB::table('sales')->where('total_amount_correct')->value('total_amount_correct');
-            //$total_amount_correct = DB::table('sales')->where('total_amount_correct', $total_amount_correct)->value('total_amount_correct');
-            //$stock = Stock::where('product_id', $request->product_id)->first()->value('description');
-            $total_amount = Sale::where('product_id', $request->product_id)->first()->value('total_amount');
-            $total_amount_correct = Sale::where('product_id', $request->product_id)->first()->value('total_amount_correct');
-            //dd($total_amount);
-            //dd($total_amount_correct);
-            //$total_amount_correct = Sale::where('total_amount_correct', $request->total_amount_correct)->first();
-            //$total_amount_correct = Sale::where('total_amount_correct', $request->total_amount_correct)->get();
-            //$total_amount = DB::table('sales')->where('total_amount')->first();
-            //$total_amount_correct = DB::table('sales')->where('total_amount_correct')->first();
-            // if ($request->total_amount_correct == $request->total_amount) // 5 = 5
-            if ($total_amount_correct == $total_amount) // 5 = 5
-            {
-                return "test";
-                //$sale->save();
-            } else //if ($total_amount_correct != $total_amount) // 5 > 3 || 5 < 3
-            {
-                $difference_TA = $total_amount_correct - $total_amount;
-                $stock->increment('quantity', $difference_TA);
-                //$sale->save();
-            }
-            
             $sale->save();
-
+            
             return response()->json([
                 "message" => "records updated successfully"
             ], 200);
@@ -137,3 +115,46 @@ class SaleController extends Controller
         }
     }
 }
+
+
+/*
+public function updateSale(Request $request, $id) {
+        if (Sale::where('id', $id)->exists()) {
+            /* $sale = Sale::find($id);
+            $sale->description = is_null($request->description) ? $sale->description : $request->description;
+            $sale->product_id = is_null($request->product_id) ? $sale->product_id : $request->product_id;
+            $sale->total_amount = is_null($request->total_amount) ? $sale->total_amount : $request->total_amount;
+            $sale->total_amount_correct = is_null($request->total_amount_correct) ? $sale->total_amount_correct : $request->total_amount_correct;
+            $sale->save();
+            
+            $stock = Stock::where('product_id', $request->product_id)->first(); */
+            //$total_amount = Sale::where('total_amount', $request->total_amount)->first();
+            //$sale = Sale::where('product_id', $request->product_id)->first();
+            //$total_amount = Sale::where('total_amount', $request->total_amount)->get();
+            //$total_amount = DB::table('sales')->where('total_amount')->value('total_amount');
+            //$total_amount = DB::table('sales')->where('total_amount', $total_amount)->value('total_amount');
+            //$total_amount_correct = DB::table('sales')->where('total_amount_correct')->value('total_amount_correct');
+            //$total_amount_correct = DB::table('sales')->where('total_amount_correct', $total_amount_correct)->value('total_amount_correct');
+            //$stock = Stock::where('product_id', $request->product_id)->first()->value('description');
+            /* $total_amount = Sale::where('product_id', $request->product_id)->first()->value('total_amount');
+            $total_amount_correct = Sale::where('product_id', $request->product_id)->first()->value('total_amount_correct'); */
+            /* $total_amount = DB::table('sales')->where('product_id', $request->product_id)->value('total_amount');
+            $total_amount_correct = DB::table('sales')->where('product_id', $request->product_id)->value('total_amount_correct'); */
+            //dd($total_amount);
+            //dd($total_amount_correct);
+            //$total_amount_correct = Sale::where('total_amount_correct', $request->total_amount_correct)->first();
+            //$total_amount_correct = Sale::where('total_amount_correct', $request->total_amount_correct)->get();
+            //$total_amount = DB::table('sales')->where('total_amount')->first();
+            //$total_amount_correct = DB::table('sales')->where('total_amount_correct')->first();
+            // if ($request->total_amount_correct == $request->total_amount) // 5 = 5
+            /* if ($total_amount_correct == $total_amount) // 5 = 5
+            {
+                //return "test";
+                //$sale->save();
+            } else //if ($total_amount_correct != $total_amount) // 5 > 3 || 5 < 3
+            {
+                $difference_TA = $total_amount_correct - $total_amount;
+                $stock->increment('quantity', $difference_TA);
+                //$sale->save();
+            }
+*/
