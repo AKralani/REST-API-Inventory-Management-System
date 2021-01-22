@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Validator;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+//use Validator;
 
 class ProductSaveRequest extends FormRequest
 {
@@ -59,4 +61,9 @@ class ProductSaveRequest extends FormRequest
         if($validator->fails()) {
             return response()->json($validator->errors(), 400);
         } */
+
+        protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json($validator->errors(), 422));
+    }
 }

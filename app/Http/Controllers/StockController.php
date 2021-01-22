@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StockSaveRequest;
 use App\Stock;
 use App\Product;
 use App\Sale;
@@ -28,15 +29,15 @@ class StockController extends Controller
         $stock= $request->all();
         $stock->save();
     } */
-    public function stockSave(Request $request) {
-        $rules = [
+    public function stockSave(StockSaveRequest $request) {
+        /* $rules = [
             'description' => 'required|min:3',
             'quantity' => 'required|min:1|max:3',
         ];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()) {
             return response()->json($validator->errors(), 400);
-        }
+        } */
         $stock = Stock::create($request->all());
         return response()->json($stock, 201);
     }

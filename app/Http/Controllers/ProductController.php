@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductSaveRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Stock;
 use App\Product;
 use App\Sale;
@@ -77,11 +78,13 @@ class ProductController extends Controller
         return response()->json($product, 200);
     } */
 
-    public function updateProduct(Request $request, $id) {
+    public function updateProduct(ProductUpdateRequest $request, $id) {
         if (Product::where('id', $id)->exists()) {
             $product = Product::find($id);
             $product->name = is_null($request->name) ? $product->name : $request->name;
-            $product->type = is_null($request->type) ? $product->type : $request->type;
+            $product->type_id = is_null($request->type_id) ? $product->type_id : $request->type_id;
+            $product->description = is_null($request->description) ? $product->description : $request->description;
+            $product->price = is_null($request->price) ? $product->price : $request->price;
             $product->save();
 
             return response()->json([
