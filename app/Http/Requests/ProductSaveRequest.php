@@ -62,7 +62,7 @@ class ProductSaveRequest extends FormRequest
             return response()->json($validator->errors(), 400);
         } */
 
-        protected function failedValidation(Validator $validator)
+    protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json($validator->errors(), 422));
     }

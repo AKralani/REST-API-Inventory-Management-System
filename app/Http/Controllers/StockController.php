@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StockSaveRequest;
+use App\Http\Requests\StockUpdateRequest;
 use App\Stock;
 use App\Product;
 use App\Sale;
@@ -87,10 +88,10 @@ class StockController extends Controller
         }
     } */
 
-    public function updateStock(Request $request, $id) {
+    public function updateStock(StockUpdateRequest $request, $id) {
         $rules = [
-            'description' => 'required|min:3',
-            'quantity' => 'required|min:1|max:3',
+            /* 'description' => 'required|min:3',
+            'quantity' => 'required|min:1|max:3', */
         ];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()) {
@@ -100,6 +101,7 @@ class StockController extends Controller
             $stock = Stock::find($id);
             $stock->description = is_null($request->description) ? $stock->description : $request->description;
             $stock->quantity = is_null($request->quantity) ? $stock->quantity : $request->quantity;
+            $stock->product_id = is_null($request->product_id) ? $stock->product_id : $request->product_id;
             $stock->save();
 
             return response()->json([

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ReceivedProductSaveRequest extends FormRequest
+class ReceivedProductUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,8 @@ class ReceivedProductSaveRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_id' => 'required',
-            'total_amount' => 'required|numeric|min:1|max:100'
+            'product_id.required'=> 'Product ID is Required',
+            'total_amount.required'=> 'Total Amount is Required',
         ];
     }
 

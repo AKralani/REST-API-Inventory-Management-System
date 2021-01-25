@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\SaleSaveRequest;
+use App\Http\Requests\SaleUpdateRequest;
 use App\Stock;
 use App\Product;
 use App\Sale;
@@ -29,7 +30,7 @@ class SaleController extends Controller
         ], 201);
     } */
 
-    public function saleSave(Request $request) {
+    public function saleSave(SaleSaveRequest $request) {
         /* $rules = [
             'description' => 'required|min:3',
             'total_amount' => 'required|lte:20'
@@ -39,10 +40,10 @@ class SaleController extends Controller
         $stock = Stock::where('product_id', $request->product_id)->firstOrFail();
         $qty = $stock->quantity;
         $rules = [
-            'description' => 'required',
-            'product_id' => 'required',
+            //'description' => 'required',
+            //'product_id' => 'required',
             'total_amount' => 'required|numeric|min:1|max:'.$qty,
-            'price' => 'required'
+            //'price' => 'required'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -74,7 +75,7 @@ class SaleController extends Controller
         }
     }
 
-    public function updateSale(Request $request, $id) {
+    public function updateSale(SaleUpdateRequest $request, $id) {
         if (Sale::where('id', $id)->exists()) {
             $sale = Sale::find($id); 
             $stock = Stock::where('product_id', $request->product_id)->first();         
