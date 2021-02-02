@@ -12,6 +12,17 @@ use Validator;
 
 class ProductController extends Controller
 {
+
+    /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('jwt', ['except' => ['getAllProducts', 'getProduct']]);
+    }
+
     //Products
 
     public function getAllProducts() {
